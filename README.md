@@ -6,4 +6,6 @@ Este Bot esta completado con dos API:
 + Instagram ([AeroFuego-InstagramAPI](https://github.com/gamboavalentin/AeroFuego-InstagramAPI)) que publica los pasajes baratos en la cuenta de “[aerofuego](https://www.instagram.com/aerofuego/)”.
 + Telegram ([AeroFuego-TelegramAPI](https://github.com/gamboavalentin/AeroFuego-TelegramAPI)) que permite el manejo de notificaciones personalizadas y la búsqueda puntual de alguna combinación, en el usuario “[aerofuego](https://t.me/AeroFuego_bot)”.
 
+![Screenshot de la Pagina de Aerolineas](/assets/images/img1.png)
+
 ## Mas Info => [ScraperBot](https://fuchsia-gooseberry-d65.notion.site/ScraperBOT-93b2587375534e71b46f718dbe713514?pvs=4).
