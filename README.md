@@ -3,9 +3,9 @@
 <div>
     <img width="200" height="200"
         src="/assets/images/logo.png" style="float:left">
-    <p>
+    <div>
         Bot Scraper de pasajes baratos de la empresa <a href="https://www.aerolineas.com.ar/">Aerolineas Argentinas</a> (Bot no propietario de la misma), sobre pasajes entre: <b>Ushuaia, Rio Grande, Buenos Aires, Córdoba</b>. Con el un plazo de el mes siguiente al actual hasta 8 meses siguientes. Refrescados cada 1 hora y calculando todaslas posibles combinaciones.
-    </p>
+    </div>
 </div>
 
 Este Bot esta completado con dos API: 
