@@ -1,12 +1,8 @@
 # AeroFuego-ScraperBot
 
-<div>
-    <img width="200" height="200"
-        src="/assets/images/logo.png" style="float:left">
-    <div>
-        Bot Scraper de pasajes baratos de la empresa <a href="https://www.aerolineas.com.ar/">Aerolineas Argentinas</a> (Bot no propietario de la misma), sobre pasajes entre: <b>Ushuaia, Rio Grande, Buenos Aires, Córdoba</b>. Con el un plazo de el mes siguiente al actual hasta 8 meses siguientes. Refrescados cada 1 hora y calculando todaslas posibles combinaciones.
-    </div>
-</div>
+<img width="200" height="200" style="border-radius: 100px;" src="/assets/images/logo.png">
+
+Bot Scraper de pasajes baratos de la empresa [Aerolineas Argentinas](https://www.aerolineas.com.ar/) (Bot no propietario de la misma), sobre pasajes entre:**Ushuaia, Rio Grande, Buenos Aires, Córdoba**. Con el un plazo de el mes siguiente al actual hasta 8 meses siguientes. Refrescados cada 1 hora y calculando todaslas posibles combinaciones.
 
 Este Bot esta completado con dos API: 
 + Instagram ([AeroFuego-InstagramAPI](https://github.com/gamboavalentin/AeroFuego-InstagramAPI)) que publica los pasajes baratos en la cuenta de “[aerofuego](https://www.instagram.com/aerofuego/)”.
