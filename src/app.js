@@ -1,35 +1,66 @@
-import * as dotenv from 'dotenv' // see https://github.com/motdotla/dotenv#how-do-i-use-dotenv-with-import
-dotenv.config({ path: './src/config/.env' });
+import * as dotenv from 'dotenv'
+import { consoleViewCicle } from './utils/consoleView.js'
+import pageScraper from './controllers/pageScraper.js'
+import { getLocalData } from './controllers/localData.js'
+import { dsLogin, alertNewData } from './api/discord.js'
+import aeroArgScraper from './webScrap/aerolineasArg.js'
+import IdaList from './models/IdaList.js'
+import { newListas } from './controllers/algoritmo.js'
+import IdaVueltaList from './models/IdaVueltaList.js'
+import PromedioList from './models/PromedioList.js'
 
+dotenv.config({ path: './src/config/.env' })
 
-//-----------------DISCORD-----------------//
-import {dsLogin} from './api/discord.js';
-dsLogin(process.env.DISCORD_TOKEN);
+// -----------------DISCORD-----------------//
+dsLogin(process.env.DISCORD_TOKEN)
 
-//-----------------SEVIDOR UBUNTU-----------------//
-const servidor_ubuntu = true;
+// -----------------TRIGGER-----------------//
+await getLocalData()
 
-//-----------------COMBINACIONES-----------------//
-const combinaciones_list = [
-    ["ushuaia", "cordoba"],
-    ["ushuaia", "buenosaires"],
-    ["riogrande", "cordoba"],
-    ["riogrande", "buenosaires"]
-];
+// -----------------LocalData-----------------//
+const localData = await getLocalData()
 
-//-----------------TRIGGER-----------------//
-const trigger = {
-    ida: 25000,
-    ida_vuelta: 50000
-};
+// -----------------TIMER-----------------//
+let timerOn = false
+setInterval(async () => {
+  const hoy = new Date()
 
-//-----------------MESES-----------------//
-const cant_meses = 8;
+  if ((hoy.getMinutes() === 0 || hoy.getMinutes() === 30) && !timerOn) {
+    timerOn = true
+    consoleViewCicle('START', 'src/utils/timer.js', 'timer', `trigger ${hoy.toLocaleTimeString()} [START]`)
+    const { page, browser } = await pageScraper()
 
-//-----------------INICIALIZACION-----------------//
-import { timer, loadDB } from './utils/timer.js';
+    // ---- SCRAP ---- ↴
+    let idaListScrap = new IdaList()
 
-await loadDB();
-timer();
+    idaListScrap = await aeroArgScraper({ page, cantMesesProps: 8, idaList: idaListScrap })
 
-export {trigger, cant_meses, combinaciones_list, servidor_ubuntu}
+    await page.close()
+    await browser.close()
+
+    // ---- Datos ---- ↴
+    const datos = {
+      idaListScrap,
+      idaListOld: new IdaList(localData.idaList),
+      idaVueltaListOld: new IdaVueltaList(localData.idaVueltaList),
+      idaPromedioOld: new PromedioList(localData.idaPromedioList),
+      idaVueltaPromedioOld: new PromedioList(localData.idaVueltaPromedioList),
+      empresas: ['AA']
+    }
+
+    // ---- newList ---- ↴
+    const { idaListNew, idaVueltaListNew, idaPromedioNew, idaVueltaPromedioNew } = newListas(datos)
+
+    // ---- Local Data READ ---- ↴
+    await localData.setIdaList(idaListNew)
+    await localData.setIdaVueltaList(idaVueltaListNew)
+    await localData.setIdaPromedioList(idaPromedioNew)
+    await localData.setIdaVueltaPromedioList(idaVueltaPromedioNew)
+
+    // ---- Alerta Discord ---- ↴
+    alertNewData()
+
+    consoleViewCicle('STOP', 'src/utils/timer.js', 'timer', `stop ${hoy.toLocaleTimeString()} [STOP]`)
+    timerOn = false
+  }
+}, 1000)

@@ -5,15 +5,28 @@
   "main": "./src/app.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev-test-scrap": "node ./test/scrap.test.js",
+    "dev-test-agruparpp": "node ./test/agruparPorPrecio.test.js",
+    "dev-test-ordenarpp": "node ./test/ordenarPorPrecio.test.js",
+    "dev-test-setallid": "node ./test/setAllId.test.js",
+    "dev-test-idalist": "node ./test/idaList.test.js",
+    "dev-test-algorimto": "node ./test/algorimto.test.js",
+    "dev-test-idavueltalist": "node ./test/idaVueltaList.test.js",
+    "dev-test-promedio": "node ./test/promedio.test.js",
+    "dev-test-app": "node ./test/app.test.js",
+    "dev-test-newListas": "node ./test/newListas.test.js",
+    "dev-test-getlocaldata": "node ./test/getLocalData.test.js",
     "start": "node ./src/app.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "discord.js": "^14.11.0",
-    "dotenv": "^16.0.3",
-    "puppeteer": "^19.8.5"
+    "discord.js": "14.11.0",
+    "dotenv": "16.0.3",
+    "puppeteer": "19.8.5"
+  },
+  "devDependencies": {
+    "standard": "17.1.0"
   }
 }

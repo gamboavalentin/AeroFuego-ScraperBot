@@ -1,16 +1,31 @@
-import { console_log, console_error } from "../api/discord.js";
+import { consoleLog, consoleError, ciclosEjecucion, dsOn } from '../api/discord.js'
 
-function consoleViewAction(src, func, action){
-  const hoy = new Date();
-  console_log('ACTION', src, action);
-  console.log(`[${hoy.toLocaleString()}] [ACTION] => ${src} => ${func} => ${action}`);
+function consoleViewAction (src, func, action) {
+  const hoy = new Date()
+  console.log(`[${hoy.toLocaleString()}] [ACTION] => ${src} => ${func} => ${action}`)
+  // ---Discord---//
+  if (dsOn) {
+    consoleLog('ACTION', src, action)
+  }
 }
 
-function consoleViewError(src, func, err){
-  const hoy = new Date();
-  console.log(`[${hoy.toLocaleString()}] [ERROR] => ${src} => ${func} => ${err}`);
-  //Discord
-  console_log('ERROR', src, err);
-  console_error(src, err);
+function consoleViewError (src, func, err) {
+  const hoy = new Date()
+  console.log(`[${hoy.toLocaleString()}] [ERROR] => ${src} => ${func} => ${err}`)
+  // ---Discord---//
+  if (dsOn) {
+    consoleLog('ERROR', src, err)
+    consoleError(src, err)
+  }
 }
-export { consoleViewAction, consoleViewError}
+
+function consoleViewCicle (tipo, src, func, action) {
+  const hoy = new Date()
+  console.log(`[${hoy.toLocaleString()}] [${tipo}] => ${src} => ${func} => ${action}`)
+  // ---Discord---//
+  if (dsOn) {
+    consoleLog(tipo, src, action)
+    ciclosEjecucion(tipo, src, action)
+  }
+}
+export { consoleViewAction, consoleViewError, consoleViewCicle }
