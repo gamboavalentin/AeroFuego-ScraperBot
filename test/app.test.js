@@ -28,7 +28,7 @@ consoleViewAction('test/promedio.test.js', 'index', 'localData GET Pass. ✅')
 consoleViewAction('test/promedio.test.js', 'index', 'Scrap Start... ⏱️')
 let idaListScrap = new IdaList()
 
-idaListScrap = await aeroArgScraper({ page, cantMesesProps: 2, idaList: idaListScrap })
+idaListScrap = await aeroArgScraper({ page, cantMesesProps: 8, idaList: idaListScrap })
 
 await page.close()
 await browser.close()
@@ -42,7 +42,8 @@ const { idaListNew, idaVueltaListNew, idaPromedioNew, idaVueltaPromedioNew } = n
   idaVueltaListOld,
   idaPromedioOld,
   idaVueltaPromedioOld,
-  empresas: ['AA']
+  empresas: ['AA'],
+  paramsCantDias: { max: 120, min: 3 }
 })
 consoleViewAction('test/promedio.test.js', 'index', 'newListas Pass. ✅')
 

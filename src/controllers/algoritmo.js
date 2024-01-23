@@ -95,6 +95,8 @@ export function setAllId (list) {
 }
 
 export function promedio ({ list = new IdaList() || new IdaVueltaList(), promedioList = new PromedioList() }) {
+  promedioList.addNewDate()
+
   for (let i = 0; i < combinaciones.length; i++) {
     const comb = combinaciones[i]
     const vuelosCombinacion = list[comb]

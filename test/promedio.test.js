@@ -18,23 +18,21 @@ const idaVueltalist = new IdaList(await localData.getAeroTest('idaVueltaList.jso
 
 consoleViewAction('test/promedio.test.js', 'index', 'promedioList Start ⏱️')
 
-const idapromedioListNew = new PromedioList({})
-const idaVueltapromedioListNew = new PromedioList({})
+const idapromedioListNew = new PromedioList({ /* db: await localData.getAeroTest('idaPromedioList.json') */ })
+const idaVueltapromedioListNew = new PromedioList({ /* db: await localData.getAeroTest('idaVueltaPromedioList.json') */ })
 
 consoleViewAction('test/promedio.test.js', 'index', 'promedioList Pass ✅')
 
 // -------- promedioListTest --------↴
 
-consoleViewAction('test/promedio.test.js', 'index', 'promedioListTest Start ⏱️')
-
 const idaPromedioList = promedio({ list: idalist, promedioList: idapromedioListNew })
 const idaVueltaPromedioList = promedio({ list: idaVueltalist, promedioList: idaVueltapromedioListNew })
 
-consoleViewAction('test/promedio.test.js', 'index', 'promedioListTest Pass ✅')
+consoleViewAction('test/promedio.test.js', 'index', 'promedio Pass ✅')
 
 // -------- save --------↴
 
-await localData.setAeroTest(idaPromedioList, 'idaPromedioList.json')
-await localData.setAeroTest(idaVueltaPromedioList, 'idaVueltaPromedioList.json')
+await localData.setAeroTest(idaPromedioList, 'promedio/idaPromedioList.json')
+await localData.setAeroTest(idaVueltaPromedioList, 'promedio/idaVueltaPromedioList.json')
 
-consoleViewCicle('STOP', 'test/promedio.test.js', 'index', 'Test exitoso! ✅')
+consoleViewCicle('STOP', 'test/promedio.test.js', 'index', 'Test exitoso! 🏁')

@@ -14,7 +14,7 @@ export default class PromedioList {
   ['bue-rga'] = Promedio
 
   constructor ({ db = {}, preciosLength = 120 }) {
-    this.dateArray = db.dateArray || [new Date()]
+    this.dateArray = db.dateArray || []
     this.preciosLength = db.preciosLength || preciosLength
 
     this['cor-ush'] = new Promedio(db['cor-ush'] || {})
@@ -30,5 +30,10 @@ export default class PromedioList {
   addNewPrecios ({ promedio = new Promedio(), comb }) {
     this[comb].addAllPrecios(promedio, this.preciosLength)
     this[comb].calcularAllPromedios()
+  }
+
+  addNewDate () {
+    this.dateArray.unshift(new Date())
+    this.dateArray.length = this.preciosLength > this.dateArray.length ? this.dateArray.length : this.preciosLength
   }
 }

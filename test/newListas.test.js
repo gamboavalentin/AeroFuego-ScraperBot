@@ -32,7 +32,8 @@ const { idaListNew, idaVueltaListNew, idaPromedioNew, idaVueltaPromedioNew } = n
   idaVueltaListOld,
   idaPromedioOld,
   idaVueltaPromedioOld,
-  empresas: ['AA']
+  empresas: ['AA'],
+  paramsCantDias: { max: 120, min: 3 }
 })
 consoleViewAction('test/newListas.test.js', 'index', 'newListas Pass. ✅')
 

@@ -1,8 +1,7 @@
 import os from 'os'
 import * as url from 'url'
 import fs from 'fs'
-// import { fileURLToPath } from 'url'
-// const __filename = fileURLToPath(import.meta.url)
+import nombreArchivos from '../utils/nombreArchivos.js'
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url))
 
 let urlOsType
@@ -33,46 +32,46 @@ export default class LocalData {
 
   // ----- Ida List -----//
   async getIdaList () {
-    this.idaList = await JSON.parse(await fs.readFileSync(urlOsType + 'idaList.json'))
+    this.idaList = await JSON.parse(await fs.readFileSync(urlOsType + nombreArchivos.listas.ida))
     return this.idaList
   }
 
   async setIdaList (idaList_) {
     this.idaList = idaList_
-    await fs.writeFileSync(urlOsType + 'idaList.json', JSON.stringify(this.idaList))
+    await fs.writeFileSync(urlOsType + nombreArchivos.listas.ida, JSON.stringify(this.idaList))
   }
 
   // ----- Ida Vuelta List -----//
   async getIdaVueltaList () {
-    this.idaVueltaList = await JSON.parse(await fs.readFileSync(urlOsType + 'idaVueltaList.json'))
+    this.idaVueltaList = await JSON.parse(await fs.readFileSync(urlOsType + nombreArchivos.listas.idaVuelta))
     return this.idaVueltaList
   }
 
   async setIdaVueltaList (idaVueltaList_) {
     this.idaVueltaList = idaVueltaList_
-    await fs.writeFileSync(urlOsType + 'idaVueltaList.json', JSON.stringify(this.idaVueltaList))
+    await fs.writeFileSync(urlOsType + nombreArchivos.listas.idaVuelta, JSON.stringify(this.idaVueltaList))
   }
 
   // ----- Ida Promedio List -----//
   async getIdaPromedioList () {
-    this.idaPromedioList = await JSON.parse(await fs.readFileSync(urlOsType + 'idaPromedioList.json'))
+    this.idaPromedioList = await JSON.parse(await fs.readFileSync(urlOsType + nombreArchivos.promedio.ida))
     return this.idaPromedioList
   }
 
   async setIdaPromedioList (idaPromedioList_) {
     this.idaPromedioList = idaPromedioList_
-    await fs.writeFileSync(urlOsType + 'idaList.idaPromedioList', JSON.stringify(this.idaPromedioList))
+    await fs.writeFileSync(urlOsType + nombreArchivos.promedio.ida, JSON.stringify(this.idaPromedioList))
   }
 
   // ----- Ida Vuelta Promedio List -----//
   async getIdaVueltaPromedioList () {
-    this.idaVueltaPromedioList = await JSON.parse(await fs.readFileSync(urlOsType + 'idaVueltaPromedioList.json'))
+    this.idaVueltaPromedioList = await JSON.parse(await fs.readFileSync(urlOsType + nombreArchivos.promedio.idaVuelta))
     return this.idaVueltaPromedioList
   }
 
   async setIdaVueltaPromedioList (idaVueltaPromedioList_) {
     this.idaVueltaPromedioList = idaVueltaPromedioList_
-    await fs.writeFileSync(urlOsType + 'idaVueltaPromedioList.json', JSON.stringify(this.idaVueltaPromedioList))
+    await fs.writeFileSync(urlOsType + nombreArchivos.promedio.idaVuelta, JSON.stringify(this.idaVueltaPromedioList))
   }
 
   // ----- AeroTest -----//
@@ -89,12 +88,12 @@ export default class LocalData {
 
   // ----- Config -----//
   async getConfig () {
-    this.config = await JSON.parse(await fs.readFileSync(urlOsType + 'config.json'))
+    this.config = await JSON.parse(await fs.readFileSync(urlOsType + nombreArchivos.config))
     return this.config
   }
 
   async setConfig (config_) {
     this.config = config_
-    await fs.writeFileSync(urlOsType + 'config.json', JSON.stringify(config_))
+    await fs.writeFileSync(urlOsType + nombreArchivos.config, JSON.stringify(config_))
   }
 }

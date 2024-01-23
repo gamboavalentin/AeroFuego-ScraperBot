@@ -43,9 +43,10 @@ setInterval(async () => {
       idaListScrap,
       idaListOld: new IdaList(localData.idaList),
       idaVueltaListOld: new IdaVueltaList(localData.idaVueltaList),
-      idaPromedioOld: new PromedioList(localData.idaPromedioList),
-      idaVueltaPromedioOld: new PromedioList(localData.idaVueltaPromedioList),
-      empresas: ['AA']
+      idaPromedioOld: new PromedioList({ db: localData.idaPromedioList }),
+      idaVueltaPromedioOld: new PromedioList({ db: localData.idaVueltaPromedioList }),
+      empresas: ['AA'],
+      paramsCantDias: { max: 120, min: 3 }
     }
 
     // ---- newList ---- ↴
