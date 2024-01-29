@@ -1,8 +1,8 @@
 import Ida from './Ida.js'
-import combinaciones from './Combinaciones.js'
+import combinaciones from '../utils/combinaciones.js'
 
 export default class IdaList {
-  timestamp = Date;
+  date = Date;
 
   ['ush-cor'] = [Ida];
   ['cor-ush'] = [Ida];
@@ -14,9 +14,8 @@ export default class IdaList {
   ['bue-rga'] = [Ida]
 
   constructor (db = {}) {
-    const d = new Date()
+    this.date = db.date || new Date()
 
-    this.timestamp = d.getTime()
     this['ush-cor'] = db['ush-cor'] ? this.toSrcapData(db['ush-cor']) : []
     this['cor-ush'] = db['cor-ush'] ? this.toSrcapData(db['cor-ush']) : []
     this['ush-bue'] = db['ush-bue'] ? this.toSrcapData(db['ush-bue']) : []
@@ -35,24 +34,27 @@ export default class IdaList {
   }
 
   agruparPorPrecio () {
-    // Recorrer todas las combinaciones
+    // Recorrer todas las combinaciones ↴
     for (let i = 0; i < combinaciones.length; i++) {
       if (this[combinaciones[i]].length > 0) {
         const diasList = this[combinaciones[i]]
-        // Recorrer todos los dias
+        // Recorrer todos los dias ↴
         for (let izq = 0; izq < (diasList.length - 1); izq++) { // ← Seleccionar el dia de la izquierda
-          const diaIzq = diasList[izq]
+          const diaIzq = new Ida(diasList[izq])
 
           for (let der = izq + 1; der < diasList.length; der++) { // ← Seleccionar los dias de la derecha
-            const diaDer = diasList[der]
+            const diaDer = new Ida(diasList[der])
 
             if (diaIzq.empresa === diaDer.empresa && diaIzq.precio === diaDer.precio) {
-              diasList[izq].fechas = diasList[izq].fechas.concat(diaDer.fechas)
+              diasList[izq].agregarFechas(diaDer.fechas)
 
               diasList.splice(der, 1)
               der--
             }
           }
+
+          // Actualizar ID ↴
+          diasList[izq].updateId()
         }
 
         this[combinaciones[i]] = diasList

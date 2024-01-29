@@ -1,17 +1,40 @@
-export default class ScrapData {
+export default class Ida {
   id = String
+  comb = String
   fechas = [Date]
   precio = Number
   empresa = String
 
-  constructor ({ id = '', fechas = Array, precio = Number, empresa = String }) {
-    this.id = id
+  constructor ({ id = '', comb = String, fechas = Array, precio = Number, empresa = String }) {
+    this.comb = comb
     this.fechas = fechas
     this.precio = precio
     this.empresa = empresa
+
+    this.id = id || this.createId()
   }
 
-  setId (comb = String, timestamp = Number) {
-    this.id = `${comb}/${this.precio}/${this.empresa}/${timestamp}`
+  createId () {
+    return `ida/${this.comb}/${this.empresa}/${this.precio}/${this.sumFechas()}`
+  }
+
+  updateId () {
+    this.id = this.createId()
+  }
+
+  sumFechas () {
+    let sumaDias = 0
+
+    this.fechas.forEach(fecha => {
+      const dateFecha = new Date(fecha)
+
+      sumaDias += (dateFecha.getMonth() + 1) + dateFecha.getDate()
+    })
+
+    return sumaDias
+  }
+
+  agregarFechas (fechas_) {
+    this.fechas = this.fechas.concat(fechas_)
   }
 }

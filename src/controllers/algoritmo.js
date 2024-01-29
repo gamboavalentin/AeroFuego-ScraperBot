@@ -1,8 +1,9 @@
 import IdaList from '../models/IdaList.js'
 import IdaVueltaList from '../models/IdaVueltaList.js'
-import combinaciones from '../models/Combinaciones.js'
+import combinaciones from '../utils/combinaciones.js'
 import Promedio from '../models/Promedio.js'
 import PromedioList from '../models/PromedioList.js'
+import { idaVueltaCreateList } from './IdaVuelta.js'
 
 export function newListas ({
   idaListOld = new IdaList(),
@@ -17,7 +18,6 @@ export function newListas ({
   let idaListNew = idaListScrap
   // Agrupamos por precio y creamos las id ↴
   idaListNew.agruparPorPrecio()
-  idaListNew = setAllId(idaListNew)
 
   // Borramos los precios viejos de la vieja lista ↴
   idaListOld.deleteOldPrices(idaListNew, empresas)
@@ -29,11 +29,8 @@ export function newListas ({
   idaListNew = ordenarPorPrecio(idaListNew)
 
   // ------------------------------ IDA Y VUELTA ------------------------------ //
-  let idaVueltaListNew = new IdaVueltaList()
-
   // Crear la Lista de ida y vuelta con los pasajes de ida ↴
-  idaVueltaListNew.createList(idaListNew, paramsCantDias)
-  idaVueltaListNew = setAllId(idaVueltaListNew)
+  let idaVueltaListNew = idaVueltaCreateList(idaListNew, paramsCantDias)
 
   // Agregamos los vuelos de la vieja lista de otras combinaciones ↴
   idaVueltaListNew.addOldList(idaVueltaListOld)
@@ -54,10 +51,10 @@ export function ordenarPorPrecio (list) {
     if (list[combinaciones[i]].length > 0) {
       const diasList = list[combinaciones[i]]
       // 🗓️ Recorrer todos los dias
-      for (let izq = 0; izq < (diasList.length - 1); izq++) { // ← Seleccionar el dia de la izquierda
+      for (let izq = 0; izq < (diasList.length - 1); izq++) { //   [↓][-][-][-] Seleccionar el dia de la izquierda
         const diaIzq = diasList[izq]
 
-        for (let der = izq + 1; der < diasList.length; der++) { // ← Seleccionar los dias de la derecha
+        for (let der = izq + 1; der < diasList.length; der++) { // [-][↓][↓][↓] Seleccionar los dias de la derecha
           const diaDer = diasList[der]
 
           if (diaIzq.precio > diaDer.precio) {
@@ -71,24 +68,6 @@ export function ordenarPorPrecio (list) {
 
       // 💾 Guardar la lista
       list[combinaciones[i]] = diasList
-    }
-  }
-  return list
-}
-
-export function setAllId (list) {
-  // ✈️ Recorrer todas las combinaciones
-  for (let i = 0; i < combinaciones.length; i++) {
-    const comb = combinaciones[i]
-    if (list[comb].length > 0) {
-      const viajes = list[comb]
-      // 🗓️ Recorrer todos los viajes
-      for (let z = 0; z < viajes.length; z++) { // ← Seleccionar cada uno de los viejes
-        viajes[z].setId(comb, list.timestamp)
-      }
-
-      // 💾 Guardar la lista
-      list[comb] = viajes
     }
   }
   return list

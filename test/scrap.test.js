@@ -15,8 +15,8 @@ const localData = new LocalData()
 
 const idaList = new IdaList(/* await localData.getAeroTest('scrap.json') */)
 
-let aeroArgScrap = await aeroArgScraper({ page, cantMesesProps: 5, idaList, switchTest: false })
-aeroArgScrap = await aeroArgScraper({ page, cantMesesProps: 5, idaList, switchTest: true })
+let aeroArgScrap = await aeroArgScraper({ page, cantMesesProps: 2, idaList, switchTest: false })
+aeroArgScrap = await aeroArgScraper({ page, cantMesesProps: 2, idaList, switchTest: true })
 
 await page.close()
 await browser.close()

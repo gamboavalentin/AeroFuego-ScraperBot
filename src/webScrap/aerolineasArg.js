@@ -4,7 +4,7 @@ import IdaList from '../models/IdaList.js'
 import { fechaParse } from '../utils/fechas.js'
 import { consoleViewError, consoleViewAction } from '../utils/consoleView.js'
 
-async function aeroScraper (page, type) {
+async function aeroScraper (page, type, comb) {
   // fdcBox
   const fdcBox = await page.$(`.fdc-${type}-box`)
   // año
@@ -31,7 +31,7 @@ async function aeroScraper (page, type) {
 
   return diasList.map(diaPack => {
     const fecha = fechaParse({ año: ano, mesNombre: mes, dia: diaPack.dia })
-    return new Ida({ precio: diaPack.precio, fechas: [fecha], empresa: 'AA' })
+    return new Ida({ comb, precio: diaPack.precio, fechas: [fecha], empresa: 'AA' })
   })
 }
 
@@ -121,10 +121,10 @@ export default async function aeroArgScraper ({ page, cantMesesProps, idaList = 
         } while (err && errCount < 5)
 
         if (primerMes) {
-          idaList[comVuelta] = idaList[comVuelta].concat(await aeroScraper(page, 'from'))
+          idaList[comVuelta] = idaList[comVuelta].concat(await aeroScraper(page, 'from', comVuelta))
         } else {
-          idaList[combIda] = idaList[combIda].concat(await aeroScraper(page, 'from'))
-          idaList[comVuelta] = idaList[comVuelta].concat(await aeroScraper(page, 'to'))
+          idaList[combIda] = idaList[combIda].concat(await aeroScraper(page, 'from', combIda))
+          idaList[comVuelta] = idaList[comVuelta].concat(await aeroScraper(page, 'to', comVuelta))
         }
       } catch (error) {
         consoleViewError('src/webScrap/aerolineasArg.js', 'aeroArgScraper', `Error de Carga de Pagina: ${error}`)
