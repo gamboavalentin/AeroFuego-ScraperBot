@@ -14,7 +14,7 @@ export default class IdaVueltaList {
   ['bue-rga'] = [IdaVuelta]
 
   constructor (db = {}) {
-    this.timestamp = db.timestamp || new Date()
+    this.date = db.date || new Date()
 
     this['ush-cor'] = db['ush-cor'] ? this.toIdaVuelta(db['ush-cor']) : []
     this['cor-ush'] = db['cor-ush'] ? this.toIdaVuelta(db['cor-ush']) : []
