@@ -4,18 +4,19 @@ import combinaciones from '../utils/combinaciones.js'
 import Promedio from '../models/Promedio.js'
 import PromedioList from '../models/PromedioList.js'
 import { idaVueltaCreateList } from './IdaVuelta.js'
+import { consoleViewAction } from '../utils/consoleView.js'
 
 export function newListas ({
+  idaListNew = new IdaList(),
   idaListOld = new IdaList(),
   idaVueltaListOld = new IdaVueltaList(),
-  idaListScrap = new IdaList(),
   empresas = Array,
   paramsCantDias = { max: Number, min: Number },
   idaPromedioOld = new PromedioList(),
   idaVueltaPromedioOld = new PromedioList()
 }) {
+  consoleViewAction('src/controllers/algoritmo.js', 'newListas', 'RUN.')
   // ------------------------------ IDA ------------------------------ //
-  let idaListNew = idaListScrap
   // Agrupamos por precio y creamos las id ↴
   idaListNew.agruparPorPrecio()
 
@@ -41,6 +42,8 @@ export function newListas ({
   // ------------------------------ Promedios ------------------------------ //
   const idaPromedioNew = promedio({ list: idaListNew, promedioList: idaPromedioOld })
   const idaVueltaPromedioNew = promedio({ list: idaVueltaListNew, promedioList: idaVueltaPromedioOld })
+
+  consoleViewAction('src/controllers/algoritmo.js', 'newListas', 'END.')
 
   return { idaListNew, idaVueltaListNew, idaPromedioNew, idaVueltaPromedioNew }
 }

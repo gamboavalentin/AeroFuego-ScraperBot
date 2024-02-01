@@ -2,7 +2,7 @@ import * as dotenv from 'dotenv'
 import { consoleViewCicle, consoleViewAction } from '../src/utils/consoleView.js'
 import pageScraper from '../src/controllers/pageScraper.js'
 import aeroArgScraper from '../src/webScrap/aerolineasArg.js'
-import LocalData from '../src/models/localData.js'
+import LocalData from '../src/models/LocalData.js'
 import IdaList from '../src/models/IdaList.js'
 import { newListas } from '../src/controllers/algoritmo.js'
 import IdaVueltaList from '../src/models/IdaVueltaList.js'
@@ -28,7 +28,7 @@ consoleViewAction('test/promedio.test.js', 'index', 'localData GET Pass. ✅')
 consoleViewAction('test/promedio.test.js', 'index', 'Scrap Start... ⏱️')
 let idaListScrap = new IdaList()
 
-idaListScrap = await aeroArgScraper({ page, cantMesesProps: 8, idaList: idaListScrap })
+idaListScrap = await aeroArgScraper({ page, cantMesesProps: 2, idaList: idaListScrap })
 
 await page.close()
 await browser.close()

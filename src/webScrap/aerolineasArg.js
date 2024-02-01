@@ -93,20 +93,6 @@ export default async function aeroArgScraper ({ page, cantMesesProps, idaList = 
           }
 
           if (!err) {
-            try {
-              if (await page.$eval('.search-box', text => text.querySelector('.styled__UnavailableFlightDateErrorContainer-sc-1sduzq6-3.kHterR'))) {
-                return { error: true, tipo: ['dia', 'ida'] }
-              }
-
-              if (await page.$eval('.fdc-from-box', text => text.querySelector('.fdc-button-text span').textContent === 'Sin vuelos')) {
-                return { error: true, tipo: ['dia', 'vuelta'] }
-              } else if (await page.$eval('.fdc-to-box', text => text.querySelector('.fdc-button-text span').textContent === 'Sin vuelos')) {
-                return { error: true, tipo: ['mes', 'ida y vuelta'] }
-              }
-            } catch (error) {
-
-            }
-
             await page.waitForTimeout(10000)
 
             // espera a que carge los calendarios

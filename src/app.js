@@ -31,16 +31,15 @@ setInterval(async () => {
     const { page, browser } = await pageScraper()
 
     // ---- SCRAP ---- ↴
-    let idaListScrap = new IdaList()
+    let idaListNew_ = new IdaList()
 
-    idaListScrap = await aeroArgScraper({ page, cantMesesProps: 8, idaList: idaListScrap })
+    idaListNew_ = await aeroArgScraper({ page, cantMesesProps: 8, idaList: idaListNew_ })
 
-    await page.close()
     await browser.close()
 
     // ---- Datos ---- ↴
     const datos = {
-      idaListScrap,
+      idaListNew: idaListNew_,
       idaListOld: new IdaList(localData.idaList),
       idaVueltaListOld: new IdaVueltaList(localData.idaVueltaList),
       idaPromedioOld: new PromedioList({ db: localData.idaPromedioList }),
