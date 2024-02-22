@@ -7,7 +7,7 @@ async function startBrowser () {
   if (os.type() === 'Linux') {
     try {
       browser = await puppeteer.launch({
-        executablePath: '/usr/bin/chromium-browser', //= > Servidor de Linux
+        // executablePath: '/usr/bin/chromium-browser', //= > Servidor de Linux
         headless: true, // Para Abrir el Browser => false
         args: ['--no-sandbox'],
         ignoreHTTPSErrors: true,

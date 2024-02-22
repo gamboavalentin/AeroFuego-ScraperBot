@@ -1,5 +1,5 @@
 import * as dotenv from 'dotenv'
-import { consoleViewCicle } from './utils/consoleView.js'
+import { consoleViewCicle, consoleViewError } from './utils/consoleView.js'
 import pageScraper from './controllers/pageScraper.js'
 import { getLocalData } from './controllers/localData.js'
 import { dsLogin, alertNewData } from './api/discord.js'
@@ -11,16 +11,13 @@ import PromedioList from './models/PromedioList.js'
 
 dotenv.config({ path: './src/config/.env' })
 
-// -----------------DISCORD-----------------//
+// --------------- Discord --------------- //
 dsLogin(process.env.DISCORD_TOKEN)
 
-// -----------------TRIGGER-----------------//
-await getLocalData()
-
-// -----------------LocalData-----------------//
+// -------------- LocalData ----------------//
 const localData = await getLocalData()
 
-// -----------------TIMER-----------------//
+// ---------------- Timer ----------------//
 let timerOn = false
 setInterval(async () => {
   const hoy = new Date()
@@ -30,7 +27,12 @@ setInterval(async () => {
     consoleViewCicle('START', 'src/utils/timer.js', 'timer', `trigger ${hoy.toLocaleTimeString()} [START]`)
     const { page, browser } = await pageScraper()
 
-    // ---- SCRAP ---- ↴
+    if (!page || !browser) {
+      consoleViewError('src/utils/timer.js', 'timer', `Error en la carga del browser [!page=${!page}, !browser=${!browser}]`)
+      return
+    }
+
+    // ---- Scrap ---- ↴
     let idaListNew_ = new IdaList()
 
     idaListNew_ = await aeroArgScraper({ page, cantMesesProps: 8, idaList: idaListNew_ })

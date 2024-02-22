@@ -3,7 +3,7 @@ import { consoleViewCicle, consoleViewAction } from '../src/utils/consoleView.js
 import PromedioList from '../src/models/PromedioList.js'
 import { promedio } from '../src/controllers/algoritmo.js'
 import IdaList from '../src/models/IdaList.js'
-import LocalData from '../src/models/localData.js'
+import LocalData from '../src/models/LocalData.js'
 
 dotenv.config({ path: './src/config/.env' })
 
