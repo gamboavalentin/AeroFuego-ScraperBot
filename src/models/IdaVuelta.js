@@ -7,17 +7,19 @@ export default class IdaVuelta {
   idVuelta = String
   precio = Number
   empresas = [String]
+  date = Date
   cantDias = {
     max: Number,
     min: Number
   }
 
-  constructor ({ id = null, comb = String, idIda = String, idVuelta = String, precio = Number, empresas = [String], cantDias = { max: Number, min: Number }, sumFechas = null }) {
+  constructor ({ id = null, comb = String, idIda = String, idVuelta = String, precio = Number, empresas = [String], cantDias = { max: Number, min: Number }, sumFechas = null, date = null }) {
     this.comb = comb
     this.idIda = idIda
     this.idVuelta = idVuelta
     this.precio = precio
     this.empresas = empresas
+    this.date = date || new Date()
     this.cantDias = cantDias
 
     this.id = id || this.createId(sumFechas)

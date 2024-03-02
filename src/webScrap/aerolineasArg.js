@@ -1,9 +1,9 @@
 import AeroargUrl from '../models/aeroargUrl.js'
 import Ida from '../models/Ida.js'
 import IdaList from '../models/IdaList.js'
+import { consoleViewAction } from '../utils/consoleView.js'
 import { fechaParse } from '../utils/fechas.js'
-import { consoleViewError, consoleViewAction } from '../utils/consoleView.js'
-import { pageScreenshot } from '../utils/screenshot.js'
+import reloadPageForSelector from '../utils/reloadPageForSelector.js'
 
 async function aeroScraper (page, type, comb) {
   // fdcBox
@@ -73,28 +73,15 @@ export default async function aeroArgScraper ({ page, cantMesesProps, idaList = 
       url.fechaIda = dateSearch
       url.setDates_calendar()
 
-      try {
-        let pageUrl = ''
-        if (primerMes) { pageUrl = url.dates_calendar_one_way } else { pageUrl = url.dates_calendar }
+      let pageUrl = ''
+      if (primerMes) { pageUrl = url.dates_calendar_one_way } else { pageUrl = url.dates_calendar }
 
-        await Promise.all([
-          page.waitForNavigation(),
-          await page.goto(pageUrl, { waitUntil: 'load' })
-        ])
-      } catch (error) {
-        await pageScreenshot(page, 'page-goto')
-        consoleViewError('src/webScrap/aerolineasArg.js', 'aeroArgScraper', `Error page.goto: ${error}`)
+      const { error, page_ } = await reloadPageForSelector(page, pageUrl)
+
+      if (error) {
         continue
       }
-
-      // espera a que carge los calendarios
-      try {
-        await page.waitForSelector('.fdc-from-box')
-      } catch (error) {
-        await pageScreenshot(page, 'page-waitForSelector')
-        consoleViewError('src/webScrap/aerolineasArg.js', 'aeroArgScraper', `Error page.waitForSelector: ${error}`)
-        continue
-      }
+      page = page_
 
       if (primerMes) {
         idaList[comVuelta] = idaList[comVuelta].concat(await aeroScraper(page, 'from', comVuelta))

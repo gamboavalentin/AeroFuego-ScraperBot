@@ -1,5 +1,5 @@
 import * as dotenv from 'dotenv'
-import LocalData from '../src/models/localData.js'
+import LocalData from '../src/models/LocalData.js'
 import IdaList from '../src/models/IdaList.js'
 import { consoleViewCicle } from '../src/utils/consoleView.js'
 import { ordenarPorPrecio } from '../src/controllers/algoritmo.js'

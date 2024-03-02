@@ -1,10 +1,11 @@
 {
   "name": "aerolineasbot",
-  "version": "1.0.0",
+  "version": "2.1.0",
   "description": "",
   "main": "./src/app.js",
   "type": "module",
   "scripts": {
+    "start": "node ./src/app.js",
     "dev-test-scrap": "node ./test/scrap.test.js",
     "dev-test-agruparpp": "node ./test/agruparPorPrecio.test.js",
     "dev-test-ordenarpp": "node ./test/ordenarPorPrecio.test.js",
@@ -17,7 +18,7 @@
     "dev-test-newlistas": "node ./test/newListas.test.js",
     "dev-test-getlocaldata": "node ./test/getLocalData.test.js",
     "dev-test-updateScrapId": "node ./test/updateScrapId.test.js",
-    "start": "node ./src/app.js"
+    "dev-test-screenshot": "node ./test/screenshot.test.js"
   },
   "keywords": [],
   "author": "",

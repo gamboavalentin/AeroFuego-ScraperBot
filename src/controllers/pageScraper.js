@@ -21,7 +21,7 @@ export default async function pageScraper () {
       }
     })
 
-    page.setDefaultTimeout(180000)
+    page.setDefaultTimeout(60000)
   } catch (error) {
     consoleViewError('src/utils/pageScraper.js', 'pageScraper', `Error al cargar el Browser: ${error}`)
   }
