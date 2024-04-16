@@ -9,6 +9,8 @@ export default async function (page, pageUrl) {
   do {
     countLoad++
     consoleViewAction('src/utils/reloadPageForSelector.js', 'default', `page Load [${countLoad}/${maxReload}]`)
+    await page.setCacheEnabled(false)
+
     try {
       await Promise.all([
         page.waitForNavigation(),

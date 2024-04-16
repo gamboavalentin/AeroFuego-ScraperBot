@@ -1,7 +1,7 @@
 {
   "name": "aerolineasbot",
-  "version": "2.1.0",
-  "description": "",
+  "version": "2.1.1",
+  "description": "Aerolineas Argentinas - Scrap BOT",
   "main": "./src/app.js",
   "type": "module",
   "scripts": {
