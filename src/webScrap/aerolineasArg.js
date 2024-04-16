@@ -4,6 +4,7 @@ import IdaList from '../models/IdaList.js'
 import { consoleViewAction } from '../utils/consoleView.js'
 import { fechaParse } from '../utils/fechas.js'
 import reloadPageForSelector from '../utils/reloadPageForSelector.js'
+import { pageScreenshot } from '../utils/screenshot.js'
 
 async function aeroScraper (page, type, comb) {
   // fdcBox
@@ -82,6 +83,9 @@ export default async function aeroArgScraper ({ page, cantMesesProps, idaList = 
         continue
       }
       page = page_
+
+      // TODO: Probar que no se cargue la pagina desde el cache
+      await pageScreenshot(page, combIda)
 
       if (primerMes) {
         idaList[comVuelta] = idaList[comVuelta].concat(await aeroScraper(page, 'from', comVuelta))
